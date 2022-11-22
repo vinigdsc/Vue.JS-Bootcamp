@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="hello-world">
+    <fieldset>
+      <legend>template</legend>
+      <div v-html="htmlContent"></div>
+      <p>Primeiro Nome: {{firstName}}</p>
+      <p>Ultimo Nome: {{lastName}}</p>
+      <p>Idade: {{age}} anos</p>
+      <p>{{age >= 18 ? 'Maior de idade' : 'Menor de idade'}}</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>methods</legend>
+      <button v-on:click="incrementAge">Incrementar idade</button>
+      <button @click="decrementAge">Decrementar idade</button>
+    </fieldset>
+    <fieldset>
+      <legend>computed properties</legend>
+      <!--Computed-->
+      <p>Nome Completo: {{fullName}}</p>
+      <!--Metodo-->
+      <p>Nome Completo: {{getFullName()}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>watchers</legend>
+      <label for="input-address">Endereço:</label>
+      <input id="input-address" type="text" v-model="address">
+    </fieldset>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.0.4"></script>
+  <script>
+    const app = {
+      data() {
+        return {
+          htmlContent: "<p style = 'color: red; font-size: 20px'> Hello  Vue.JS!</p>",
+          firstName: "Vinicius",
+          lastName: "Caetano",
+          age: "25",
+          address: ""
+        }
+      },
+      methods: {
+        incrementAge() {
+          this.age++;
+        },
+        decrementAge() {
+          this.age--;
+        },
+        getFullName() {
+          return `${this.firstName} ${this.lastName}`;
+        }
+      },
+      computed: {
+        fullName: function () {
+          return `${this.firstName} ${this.lastName}`
+        }
+      },
+      watch: {
+        address: function (newValue, oldValue) {
+          console.log(newValue);
+          console.log(oldValue);
+        }
+      }
+    }
+    const vm = Vue.createApp(app).mount("#hello-world");
+  </script>
+</body>
+
+</html>
