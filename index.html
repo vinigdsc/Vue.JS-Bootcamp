@@ -6,6 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vue.js</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -69,6 +74,72 @@
       <p>{{count}}</p>
       <button @click="count++">Adicionar</button>
     </fieldset>
+
+    <fieldset>
+      <legend>v-for</legend>
+      <h4>Marcas</h4>
+      <ul>
+        <li v-for="brand in carBrands">{{brand}}</li>
+      </ul>
+
+      <h4>Carros</h4>
+      <ul>
+        <li v-for="car in cars">{{car.name}} ({{car.brand}})</li>
+      </ul>
+
+      <h4>Carro</h4>
+      <p v-for="(value, key, index) in car">{{index}} - {{key}} - {{value}}</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>v-bind</legend>
+      <a v-bind:href="urlIgti">IGTI</a>
+      <br />
+      <a :href="urlIgti" :[argument]="urlIgtiDescription">IGTI</a>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>v-model</legend>
+      <label for="input-firstname">Primeiro Nome:</label>
+      <input id="input-firstname" type="text" v-model="firstName">
+      <br />
+
+      <label for="textarea-html">HTML: </label>
+      <textarea id="textarea-html" v-model="htmlContent"></textarea>
+
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">{{checked}}</label>
+      <br />
+
+      <input type="radio" id="one" value="Um" v-model="selectedOption">
+      <label for="one">Um</label>
+      <br />
+      <input type="radio" id="two" value="Dois" v-model="selectedOption">
+      <label for="two">Dois</label>
+      <br />
+      <p>Opção Escolhida: {{selectedOption}}</p>
+
+      <select v-model="selectedCar" id="">
+        <option v-for="car in cars" v-bind:value="car">
+          {{car.name}} - {{car.brand}}
+        </option>
+      </select>
+      <p>Carro Escolhido: {{selectedCar.name}} -{{selectedCar.brand}}</p>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>v-pre</legend> <!-- não compilar o arquivo v-pre -->
+      <p>{{firstName}}</p>
+      <p v-pre="firstName">{{firstName}}</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>v-cloack</legend>
+      <p>{{firstName}}</p>
+      <p v-cloack>{{firstName}}</p>
+    </fieldset>
   </div>
 
   <script src="https://unpkg.com/vue@3.0.4"></script>
@@ -83,7 +154,16 @@
           address: "",
           grade: 0,
           isUserLogged: false,
-          count: 1
+          count: 1,
+          carBrands: ['VW', "Fiat", "Renault", "Ford"],
+          cars: [{ name: "Ka", brand: "Ford" }, { name: "Palio", brand: "Fiat" }, { name: "Sandero", brand: "Renault" }],
+          car: { name: "Ka", brand: "Ford", year: 2012, km: 60000 },
+          urlIgti: 'https://www.igti.com.br',
+          urlIgtiDescription: "clique aqui",
+          argument: "title",
+          checked: false,
+          selectedOption: "",
+          selectedCar: "",
         }
       },
       methods: {
