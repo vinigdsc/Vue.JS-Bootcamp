@@ -36,6 +36,39 @@
       <label for="input-address">Endereço:</label>
       <input id="input-address" type="text" v-model="address">
     </fieldset>
+
+    <fieldset>
+      <legend>v-if</legend>
+      <label for="input-grade">Nota:</label>
+      <input id="input-grade" type="text" v-model="grade">
+      <p v-if="grade < 60">Reprovado</p>
+      <p v-else-if="grade >= 60 && grade < 98">Aprovado</p>
+      <p v-else-if="grade >= 98">Aprovado com excelência</p>
+      <p v-else>Valor invalido</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>v-show</legend>
+      <button v-show="!isUserLogged" @click="isUserLogged = true">Login</button>
+      <button v-show="isUserLogged" @click="isUserLogged = false">Logout</button>
+    </fieldset>
+    <fieldset>
+      <legend>v-text</legend>
+      <p>{{firstName}}</p>
+      <p v-text="firstName"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend>v-html</legend>
+      <div v-html="htmlContent"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>v-once</legend>
+      <p v-once>{{count}}</p>
+      <p>{{count}}</p>
+      <button @click="count++">Adicionar</button>
+    </fieldset>
   </div>
 
   <script src="https://unpkg.com/vue@3.0.4"></script>
@@ -47,7 +80,10 @@
           firstName: "Vinicius",
           lastName: "Caetano",
           age: "25",
-          address: ""
+          address: "",
+          grade: 0,
+          isUserLogged: false,
+          count: 1
         }
       },
       methods: {
